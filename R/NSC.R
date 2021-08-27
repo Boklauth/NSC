@@ -29,7 +29,7 @@
 #' # Read an a tab delimited 'txt' file
 #' NSC(school_code = '002330',
 #' branch_code =  '00',
-#' school_name = 'Western Michigan institution',
+#' school_name = 'Western Michigan University',
 #' file_creation_date = 20210708,
 #' query_option = 'CO',
 #' file_dir = 'C:/Users/Dell/Documents/National Student Clearinghouse/tests',
@@ -68,7 +68,7 @@
 #' # Read a data set that is stored as an R object
 #' NSC(school_code = '002330',
 #'         branch_code =  '00',
-#'         school_name = 'Western Michigan institution',
+#'         school_name = 'Western Michigan University',
 #'         file_creation_date = 20210708,
 #'         query_option = 'CO',
 #'         file_dir = 'C:/Users/Dell/National Student Clearinghouse/tests',
