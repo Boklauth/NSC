@@ -52,6 +52,7 @@ input_file_name = 'test_data.xlsx')
 # Read an a tab delimited 'txt' file
 NSC(school_code = '002330',
 branch_code =  '00',
+school_name = 'Western Michigan University',
 file_creation_date = 20210708,
 query_option = 'CO',
 file_dir = 'C:/Users/Dell/Documents/National Student Clearinghouse/tests',
