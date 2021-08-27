@@ -32,7 +32,7 @@ NSC(
 \value{
 NSC will return a data frame output and at the same time output '.txt' and '.xlsx' files according to the
 the file directory you have provided. The '.txt' file is the file that you will use to upload to the
-StudentTracker to obtain students' information.
+StudentTracker (https://ftps.nslc.org/) to obtain students' information.
 }
 \description{
 This package contains the NSC function {NSC()},
