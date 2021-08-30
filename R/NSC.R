@@ -4,11 +4,18 @@
 #' which allows you to format your data according to the National Student Clearinghouse format to obtain
 #' the information you need. So, you can don't need to stay busy formatting the data.
 #'
+#'This package will remove white space and special characters in the fields. It will produce output files with '.txt' and '.csv'. 
+#'
 #' @param school_code A six-digit code identifying your institution. This is a number but will be formatted as text. The number must be in quotation marks. See the example below.
 #' @param branch_code A two-digit code identifying your institution's branch if applicable. This is a number but will be formatted as text. The number must be in quotation marks. See the example below.
 #' @param school_name The official full name of your institution.
 #' @param file_creation_date This is the date you created the file. It must follow the 'YYYYMMDD' format.
 #' @param query_option This is a two letter code specifying the type of information you are requesting from NSC. The available options are 'CO' (Longitudinal Cohort), 'DA' (Declined Admissions), 'PA' (Pror Attendance), and 'SE' (Subsequent Enrollment)
+#' @note CO: Requires one search date only per file; otherwise, NSC will reject your file. If you have multiple cohorts, it is recommended that you break cohorts into multiple files: one file with one cohort and one search date. Primarily used for the purposes of reporting to Student Achievement Measure (SAM) or Voluntary System of Accountability (VSA). This query type uses your search date and looks forward, hence, you may want to select a period in the past (less than 16 years) to run a holistic student enrollment record for reporting.
+#' @note DA: Searches enrollment of former applicants who chose not to enroll at your institution or you elected to not accept the student for admissions. This query type uses your search date, presumably the first semester the student would have enrolled at your institution, and looks forward.
+#' @note PA: Historical enrollment of pending applicants to your institution. This is the query type used to find prior educational records from your prospective students for the purposes of validation or verification, hence this search uses your search date and goes backwards.
+#' @note SE: Allows multiple search dates per file. Concurrent enrollment of current students and subsequent enrollment of prior students. This query type allows you to understand if your current or prior students are dual enrolled or continuing to enroll in educational institutions after being enrolled at your institution, hence this search uses your search date and goes forward.
+
 #' @param file_dir This is the location of the data set input. Whatever type of input object you have, this director is needed to store the output files.
 #' @param input_file_name This is a data set input that does NOT contain a header. The file has one of the following extensions: '.xslx', 'xls', or a tab delimited file with an extension '.txt'. Or you can supply an R object containing a data set. It should contain in that order: first name, middle initial, last name, suffix, date of birth in 'YYYYMMDD' format, search date in 'YYYYMMDD' format, and a column for student unique identifiers.  You do NOT need to supply NSC with social security numbers of students.The column for the student unique identifiers will not be used by NSC, but it is there for student matching purposes after the data are granted by NSC. Note that you don't need to include a blank column, school code, and branch code in your input data set because this function will include them and produce a file in the right layout that is ready to be uploaded on to NSC portal. For more instructional information, see https://studentclearinghouse.info/onestop/wp-content/uploads/STCU_User_Manual.pdf.
 #' @return NSC will return a data frame output and at the same time output '.txt' and '.xlsx' files according to the
@@ -106,13 +113,15 @@ NSC <- function (school_code,
       data_table_input <- readxl::read_excel(paste0(file_dir, '/',input_file_name), 
                                              col_names = FALSE) 
       message("The function has read an 'xls' file.")
-    }  
-    else if (unlist(strsplit(input_file_name, '\\.'))[2]=='txt'){
+    }  else if (unlist(strsplit(input_file_name, '\\.'))[2]=='txt'){
       data_table_input <- read.csv(paste0(file_dir, '/',input_file_name), 
                                    header = FALSE, sep='\t')
       message("The function has read a 'txt' file.")
-    } 
-  }
+    } else if (unlist(strsplit(input_file_name, '\\.'))[2]=='csv'){
+      data_table_input <- read.csv(paste0(file_dir, '/',input_file_name), 
+                                   header = FALSE)
+      message("The function has read a 'csv' file.")
+  }}
   
   
   # Checking middle initials ####
@@ -164,13 +173,25 @@ You may get a matched data set with a warning. In the input data set, please che
   data_output <- rbind(header_row, data_table_input2, trailer_row)
   
   
-  file_name_output_xlsx <- 'data_output.xlsx'
+  # eliminate an Excel output
+  # file_name_output_xlsx <- 'data_output.xlsx'
+  # 
+  # writexl::write_xlsx(data_output,
+  #                     path = paste0(file_dir, '/',file_name_output_xlsx),
+  #                     col_names = FALSE)
   
-  writexl::write_xlsx(data_output,
-                      path = paste0(file_dir, '/',file_name_output_xlsx),
-                      col_names = FALSE)
   
-  file_name_output_txt <- 'data_output.txt'
+  current_date <- Sys.Date()
+  # remove special character in date, leaving only numbers
+  current_date <- gsub("[[:punct:]]", "", current_date)
+  
+
+  
+  
+  # output file as txt
+  file_name_output_txt <- paste0(current_date, '_',
+                                 query_option, 
+                                 '_data_output.txt')
   
   write.table(data_output,
               file = paste0(file_dir, '/',file_name_output_txt),
@@ -180,8 +201,36 @@ You may get a matched data set with a warning. In the input data set, please che
               col.names = FALSE,
               quote = FALSE)
   
-  message("Files 'data_output.xlsx' and 'data_output.txt' have been created successfully.")
-  message(paste("They are stored at", file_dir))
+  # output file as csv
+  file_name_output_csv <- paste0(current_date, '_',
+                                 query_option, 
+                                 '_data_output.csv')
+
+  write.table(data_output, 
+              file = paste0(file_dir, '/',file_name_output_csv),
+              sep = ",",# comma-separated
+              na = '',
+              row.names = FALSE,
+              col.names = FALSE,
+              quote = FALSE)
+  
+  # give message for the conditions
+  # for text file
+  if (file.exists(paste0(file_dir, "/", file_name_output_txt))) {
+    message(paste('"', file_name_output_txt,'" ', 'has been created in ', file_dir, '.',
+                  collapse = '', sep=''))
+  } else {
+    message(paste('Failed to create ', '"', file_name_output_txt,'".', sep=''))
+  }
+  
+  # for csv file
+  if (file.exists(paste0(file_dir, "/", file_name_output_csv))) {
+    message(paste('"', file_name_output_csv,'" ', 'has been created in ', file_dir, '.',
+                  collapse = '', sep=''))
+  } else {
+    message(paste('Failed to create ', '"', file_name_output_csv,'".', sep=''))
+  }
+  
   
   # Return
   return(data_output)

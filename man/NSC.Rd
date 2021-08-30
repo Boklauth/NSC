@@ -39,6 +39,18 @@ This package contains the NSC function {NSC()},
 which allows you to format your data according to the National Student Clearinghouse format to obtain
 the information you need. So, you can don't need to stay busy formatting the data.
 }
+\details{
+This package will remove white space and special characters in the fields. It will produce output files with '.txt' and '.csv'.
+}
+\note{
+CO: Requires one search date only per file; otherwise, NSC will reject your file. If you have multiple cohorts, it is recommended that you break cohorts into multiple files: one file with one cohort and one search date. Primarily used for the purposes of reporting to Student Achievement Measure (SAM) or Voluntary System of Accountability (VSA). This query type uses your search date and looks forward, hence, you may want to select a period in the past (less than 16 years) to run a holistic student enrollment record for reporting.
+
+DA: Searches enrollment of former applicants who chose not to enroll at your institution or you elected to not accept the student for admissions. This query type uses your search date, presumably the first semester the student would have enrolled at your institution, and looks forward.
+
+PA: Historical enrollment of pending applicants to your institution. This is the query type used to find prior educational records from your prospective students for the purposes of validation or verification, hence this search uses your search date and goes backwards.
+
+SE: Allows multiple search dates per file. Concurrent enrollment of current students and subsequent enrollment of prior students. This query type allows you to understand if your current or prior students are dual enrolled or continuing to enroll in educational institutions after being enrolled at your institution, hence this search uses your search date and goes forward.
+}
 \examples{
 # Read an excel file
 NSC(school_code = '002330',
