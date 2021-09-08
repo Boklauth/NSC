@@ -144,15 +144,17 @@ You may get a matched data set with a warning. In the input data set, please che
   # Check for a single unique dates for CO
   if(length(unique(data_table_input[,6]))>1){
     stop("search date for the query option 'CO' must be a single date per file. You might want to use the query option = 'SE' for multiple search dates.")
-  } else if (data_table_input[,6]) 
+  } 
     
     # Check n of days before submission
     extracted_dates <- as.Date(as.character(data_table_input[,6]), "%Y%m%d")
-  if (Sys.Date() - extracted_dates< 59){
-    earliest_date <- gsub("-", "", Sys.Date()-60)
-    stop(paste("Your earliest search data must be at least 60 days to the current date: ", 
+    for (i in 1:length(extracted_dates)){
+      if (Sys.Date() - extracted_dates[i]< 59){
+          earliest_date <- gsub("-", "", Sys.Date()-60)
+          stop(paste("Your earliest search data must be at least 60 days to the current date: ", 
                earliest_date))
-  }
+      }
+    }
   
   # create a header row ####
   header_row <- c('H1',
