@@ -1,6 +1,6 @@
 Package: NSC
 Title: This package will format your data set according to the National Student Clearinghouse format. 
-Version: 1.0.09
+Version: 1.1.0
 Authors@R:
   person(given = "Bo",
          family = "Klauth",
