@@ -14,7 +14,7 @@
 #' @note CO: Requires one search date only per file; otherwise, NSC will reject your file. If you have multiple cohorts, it is recommended that you break cohorts into multiple files: one file with one cohort and one search date. Primarily used for the purposes of reporting to Student Achievement Measure (SAM) or Voluntary System of Accountability (VSA). This query type uses your search date and looks forward, hence, you may want to select a period in the past (less than 16 years) to run a holistic student enrollment record for reporting.
 #' @note DA: Searches enrollment of former applicants who chose not to enroll at your institution or you elected to not accept the student for admissions. This query type uses your search date, presumably the first semester the student would have enrolled at your institution, and looks forward.
 #' @note PA: Historical enrollment of pending applicants to your institution. This is the query type used to find prior educational records from your prospective students for the purposes of validation or verification, hence this search uses your search date and goes backwards.
-#' @note SE: Allows multiple search dates per file. Concurrent enrollment of current students and subsequent enrollment of prior students. This query type allows you to understand if your current or prior students are dual enrolled or continuing to enroll in educational institutions after being enrolled at your institution, hence this search uses your search date and goes forward.
+#' @note SE: Allows multiple search dates per file. A search data must be at least sixty days to the file submission date. Concurrent enrollment of current students and subsequent enrollment of prior students. This query type allows you to understand if your current or prior students are dual enrolled or continuing to enroll in educational institutions after being enrolled at your institution, hence this search uses your search date and goes forward.
 
 #' @param file_dir This is the location of the data set input. Whatever type of input object you have, this director is needed to store the output files.
 #' @param input_file_name This is a data set input that does NOT contain a header. The file has one of the following extensions: '.xslx', 'xls', or a tab delimited file with an extension '.txt'. Or you can supply an R object containing a data set. It should contain in that order: first name, middle initial, last name, suffix, date of birth in 'YYYYMMDD' format, search date in 'YYYYMMDD' format, and a column for student unique identifiers.  You do NOT need to supply NSC with social security numbers of students.The column for the student unique identifiers will not be used by NSC, but it is there for student matching purposes after the data are granted by NSC. Note that you don't need to include a blank column, school code, and branch code in your input data set because this function will include them and produce a file in the right layout that is ready to be uploaded on to NSC portal. For more instructional information, see https://studentclearinghouse.info/onestop/wp-content/uploads/STCU_User_Manual.pdf.
@@ -141,7 +141,18 @@ You may get a matched data set with a warning. In the input data set, please che
   # Removing special characters from a data frame ####
   data_table_input <- as.data.frame(gsub("[[:punct:]]", "", as.matrix(data_table_input))) 
   
-  
+  # Check for a single unique dates for CO
+  if(length(unique(data_table_input[,6]))>1){
+    stop("search date for the query option 'CO' must be a single date per file. You might want to use the query option = 'SE' for multiple search dates.")
+  } else if (data_table_input[,6]) 
+    
+    # Check n of days before submission
+    extracted_dates <- as.Date(as.character(data_table_input[,6]), "%Y%m%d")
+  if (Sys.Date() - extracted_dates< 59){
+    earliest_date <- gsub("-", "", Sys.Date()-60)
+    stop(paste("Your earliest search data must be at least 60 days to the current date: ", 
+               earliest_date))
+  }
   
   # create a header row ####
   header_row <- c('H1',

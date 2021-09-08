@@ -49,7 +49,7 @@ DA: Searches enrollment of former applicants who chose not to enroll at your ins
 
 PA: Historical enrollment of pending applicants to your institution. This is the query type used to find prior educational records from your prospective students for the purposes of validation or verification, hence this search uses your search date and goes backwards.
 
-SE: Allows multiple search dates per file. Concurrent enrollment of current students and subsequent enrollment of prior students. This query type allows you to understand if your current or prior students are dual enrolled or continuing to enroll in educational institutions after being enrolled at your institution, hence this search uses your search date and goes forward.
+SE: Allows multiple search dates per file. A search data must be at least sixty days to the file submission date. Concurrent enrollment of current students and subsequent enrollment of prior students. This query type allows you to understand if your current or prior students are dual enrolled or continuing to enroll in educational institutions after being enrolled at your institution, hence this search uses your search date and goes forward.
 }
 \examples{
 # Read an excel file
