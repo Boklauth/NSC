@@ -154,7 +154,7 @@ You may get a matched data set with a warning. In the input data set, please che
       if (Sys.Date() - extracted_dates[i]< 59){
           earliest_date <- gsub("-", "", Sys.Date()-60)
           stop(paste("Your earliest search date allowed is: ", earliest_date,".",
-                     " It must be at least 60 days to the current date: ", 
+                     " It must be at least 60 days to the current date." 
                ))
       }
     }
