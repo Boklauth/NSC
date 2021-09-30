@@ -71,18 +71,22 @@ your_college <- function(x, target_college){
   # change the value of the target institution by adding "ZZ" for odering
   ds[ds == target_college] <- paste0("ZZ", target_college) 
   # order the data using CollegeName
-  ds2 <-  ds[order(ds[,id_col_num], (ds[,CollegeName_col_num])),]  
+  ds2 <-  ds[order(ds$RequesterReturnField, ds$CollegeName),]  
+  
   id <-NULL
   id[1] <- 1
-  for (i in 1:nrow(ds2)-1){
+  df <- ds2
+  for (i in 1:nrow(df)-1){
     j<-i+1
     
-    if(identical(ds2[i,id_col_num], ds2[j,id_col_num])==TRUE){
+    if(identical(df$RequesterReturnField[i], df$RequesterReturnField[j])==TRUE){
       id[j]<-id[i]+1  
     } else {
       id[j] <-1
     }
   }
+  
+  
   # combind id partitioned over person and the data
   # select only id = 1
   # This select a non-targe college if students attend the your (target) institution and 
@@ -100,7 +104,7 @@ your_college <- function(x, target_college){
   # and those who left your institution and come back
   # Then there are those who graduated from your institution, no enrollment status
   ds4 <- ds3 %>% 
-    filter(ds3[,CollegeName_col_num]== paste0("ZZ", target_college)) %>% 
+    filter(ds3$CollegeName== paste0("ZZ", target_college)) %>% 
     mutate(IN_HES = case_when(EnrollmentStatus == "W" & Graduated == "N"~"N", 
                               EnrollmentStatus != "W" & Graduated == "N"~"Y", 
                               (is.na(EnrollmentBegin) | EnrollmentStatus=="") & 
@@ -108,7 +112,7 @@ your_college <- function(x, target_college){
     mutate(RE_RETURN = case_when(IN_HES == "Y"~"Y", 
                                  TRUE ~ "N/A")) %>% 
     select(RequesterReturnField, RecordFoundYN, IN_HES, RE_RETURN) 
-    
+  
   # select those who left your institution and did not enroll elsewhere
   ds5 <- ds4 %>% 
     filter(IN_HES == "N")
