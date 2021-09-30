@@ -120,7 +120,6 @@ one_from_Graduated <- function(x){
     mutate(ComGraduated =  paste0("L", Graduated_L, "_2", Graduated_2, "_4", Graduated_4))
   join3_add_reorder <- join3_add %>% 
     select(RequesterReturnField, Graduated_L, Graduated_2, Graduated_4, ComGraduated, Overall_Graduated)
-  head(join3_add_reorder)
-  return(join3_reorder)
+  return(join3_add_reorder)
 }
 
