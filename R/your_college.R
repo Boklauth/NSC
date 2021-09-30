@@ -1,17 +1,21 @@
-#' your_college(): A Function to Analyze Students Who Attended Your Institution
+#' A Function to Analyze Students Who Attended Your Institution
 #'
-#' When you conduct a search at a specific search date, you may end up having students enrolled 
-#' at your institution. This function allows you to find out whether they returned to your institution 
-#' after they left for a semester or more; whether they left the higher education system (HES) 
-#' completely. This is known to work with the query option = "SE". 
+#' When you conduct a search at a specific search date, you may end up having 
+#' students enrolled at your institution. This function allows you to find out 
+#' whether they returned to your institution after they left for a semester or 
+#' more; whether they left the higher education system (HES) completely. This 
+#' is for the query option = "SE". 
 #' 
 #' @param x A data set obtained from NSC. The query option is "SE". You must read it into R and remove "." in the column names. 
 #' @param id_col_num A column number for the "RequesterReturnField", a column name in the 
 #' data set. 
 #' @param CollegeName_col_num A column number for "CollegeName", a column name in the data set.
 #' @param target_college Your institution's name in all CAPS. 
-#' @return It will return the students who dropped out of the higher education system [HES], 
-#' the students who left your institution and did not enroll else where.
+#' @return It will return the students that dropped out of the higher education system (HES) and 
+#' the stopout students, the students that left your institution for at least one semester and returned 
+#' to your institution, and students who graduated from your institution as a reason for not returning.
+#' This is only true when the search date associated with each student is
+#' the semester the students were not enrolled at your institution. 
 #'
 #' @export
 #' @examples
@@ -29,16 +33,18 @@
 #'              target_college = "WESTERN MICHIGAN UNIVERSITY")
 #'              
 #'              
-#' # Get a list of students who attended your institution and other colleges. 
-#' # If they attend your institution and other colleges at different times, 
-#' # other colleges (the later colleges) are selected.
-#' eg1$one_college
+#' # Get a list of students who returned to your institution, left higher ed. system
+#' # and those who graduated from your institution. 
+#' eg1$all
 #' 
 #' # Students who dropped out of HES 
 #' eg1$HE_dropout
 #' 
 #' # Students who returned to your institution after they left 
 #' eg1$returned_later
+#' 
+#' # Students who graduated from your institution as a reason of not returning
+#' eg1$your_grad
 #' 
 #' @seealso [NSC()],
 
@@ -55,7 +61,7 @@ your_college <- function(x,
   
   ds <-  x %>% 
     filter(RequesterReturnField %in% enr_person$RequesterReturnField) %>%
-    filter(Graduated == 'N') %>% 
+    #filter(Graduated == 'N') %>% 
     arrange(RequesterReturnField,EnrollmentBegin) 
   
   
@@ -78,6 +84,10 @@ your_college <- function(x,
   # select only id = 1
   # This select a non-targe college if students attend the your (target) institution and 
   # another institution, resulting in enrollment at one institution. 
+  # one_college = ds3 # is one college per student. 
+  # If student attends your college and another college subsequently
+  # then another college is selected.
+  
   ds3 <- cbind(id, ds2) %>% filter(id==1) %>% 
     select(1:dim(ds2)[2]+1)
   
@@ -85,20 +95,33 @@ your_college <- function(x,
   
   # The students who left your institution and did not enroll elsewhere, 
   # and those who left your institution and come back
+  # Then there are those who graduated from your institution, no enrollment status
   ds4 <- ds3 %>% 
     filter(ds3[,CollegeName_col_num]== paste0("ZZ", target_college)) %>% 
     mutate(IN_HES = case_when(EnrollmentStatus == "W" & Graduated == "N"~"N", 
-                              EnrollmentStatus != "W" & Graduated == "N"~"Y")) %>% 
-    select(RequesterReturnField, IN_HES) 
-  # select those who left your institutin and did not enroll elsewhere
+                              EnrollmentStatus != "W" & Graduated == "N"~"Y", 
+                              (is.na(EnrollmentBegin) | EnrollmentStatus=="") & 
+                                Graduated == "Y"~"N/A"))%>% 
+    mutate(RE_RETURN = case_when(IN_HES == "Y"~"Y", 
+                                 TRUE ~ "N/A")) %>% 
+    select(RequesterReturnField, RecordFoundYN, IN_HES, RE_RETURN) 
+    
+  # select those who left your institution and did not enroll elsewhere
   ds5 <- ds4 %>% 
     filter(IN_HES == "N")
   # select those who left your institution and comeback compared to the search date
   ds6 <- ds4 %>%   
     filter(IN_HES=="Y")
+  # select those who graduated from your institution
+  ds7 <- ds4 %>%  
+    filter(IN_HES == 'N/A')
+  # select everyone above: ds4  
+
   
-  
-  return(list(one_college = ds3, HE_dropout = ds5, returned_later = ds6))
+  return(list(all = ds4, 
+              HE_dropout = ds5, 
+              returned_later = ds6, 
+              your_grad = ds7))
 }
 
 
