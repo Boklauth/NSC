@@ -35,7 +35,7 @@ eg1 <- college_length(x = data)
              
              
 # Get a list of students who enrolled in the college
-eg1$colleges_flat
+eg1
 
 
 }
