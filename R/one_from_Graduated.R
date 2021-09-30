@@ -13,7 +13,14 @@
 #' must read it into R and remove "." in the column names. See the example below. 
 #' @return It will return a list of students who were enrolled in any colleges with various length types. 
 #' 
-#'
+#' @note In the output data set, 
+#' @note Graduated_L is a graduation status for a less-than-two-year college (L).
+#' @note Graduated_2 is a graduation status for a two-year college (2).
+#' @note Graduated_4 is a graduation status for a four_year college (4).
+#' #note ComGraduated results from concatenating graduation status combined for all colleges: L, 2, and 4.
+#' @note Overall_Graduated is a graduation status for any colleges. 
+#' If a student graduated from any colleges, it was coded as "Y" for graduated;
+#' otherwise, "N" for not graduated from any colleges.
 #' @export
 #' @examples
 #' # Read data
@@ -109,9 +116,11 @@ one_from_Graduated <- function(x){
   join1 <- left_join(x3, GCL, by=c("RequesterReturnField" = "RequesterReturnField"))
   join2 <- left_join(join1, GC2, by=c("RequesterReturnField" = "RequesterReturnField"))
   join3 <- left_join(join2, GC4, by=c("RequesterReturnField" = "RequesterReturnField"))
-  join3_reorder <- join3 %>% 
-    select(RequesterReturnField, Graduated_L, Graduated_2, Graduated_4, Overall_Graduated)
-  
+  join3_add <- join3 %>% 
+    mutate(ComGraduated =  paste0("L", Graduated_L, "_2", Graduated_2, "_4", Graduated_4))
+  join3_add_reorder <- join3_add %>% 
+    select(RequesterReturnField, Graduated_L, Graduated_2, Graduated_4, ComGraduated, Overall_Graduated)
+  head(join3_add_reorder)
   return(join3_reorder)
 }
 
