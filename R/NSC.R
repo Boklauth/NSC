@@ -2,7 +2,7 @@
 #'
 #' This package contains the NSC function {NSC()},
 #' which allows you to format your data according to the National Student Clearinghouse format to obtain
-#' the information you need. So, you can don't need to stay busy formatting the data.
+#' the information you need. So, you don't need to stay busy formatting the data.
 #'
 #'This package will remove white space and special characters in the fields. It will produce output files with '.txt' and '.csv'. 
 #'
@@ -84,7 +84,8 @@
 #' @references
 #' \insertRef{NationalStudentClearinghouse2017}{NSC}
 #' 
-#' @seealso [keyring()], [Oracle()], [dbDriver()], [dbConnect()], [dbGetQuery()], [dbDisconnect()].
+#' @seealso [your_college()],
+#' [keyring()], [Oracle()], [dbDriver()], [dbConnect()], [dbGetQuery()], [dbDisconnect()].
 
 NSC <- function (school_code,
                  branch_code,

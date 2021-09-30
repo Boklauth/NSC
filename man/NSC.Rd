@@ -37,7 +37,7 @@ StudentTracker (https://ftps.nslc.org/) to obtain students' information.
 \description{
 This package contains the NSC function {NSC()},
 which allows you to format your data according to the National Student Clearinghouse format to obtain
-the information you need. So, you can don't need to stay busy formatting the data.
+the information you need. So, you don't need to stay busy formatting the data.
 }
 \details{
 This package will remove white space and special characters in the fields. It will produce output files with '.txt' and '.csv'.
@@ -114,5 +114,6 @@ NSC(school_code = '002330',
 \insertRef{NationalStudentClearinghouse2017}{NSC}
 }
 \seealso{
+\code{\link[=your_college]{your_college()}},
 \code{\link[=keyring]{keyring()}}, \code{\link[=Oracle]{Oracle()}}, \code{\link[=dbDriver]{dbDriver()}}, \code{\link[=dbConnect]{dbConnect()}}, \code{\link[=dbGetQuery]{dbGetQuery()}}, \code{\link[=dbDisconnect]{dbDisconnect()}}.
 }
