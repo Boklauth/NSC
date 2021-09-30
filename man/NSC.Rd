@@ -114,6 +114,6 @@ NSC(school_code = '002330',
 \insertRef{NationalStudentClearinghouse2017}{NSC}
 }
 \seealso{
-\code{\link[=your_college]{your_college()}},
+\code{\link[=your_college]{your_college()}},\code{\link[=college_length]{college_length()}}, \code{\link[=one_from_Graduated]{one_from_Graduated()}},
 \code{\link[=keyring]{keyring()}}, \code{\link[=Oracle]{Oracle()}}, \code{\link[=dbDriver]{dbDriver()}}, \code{\link[=dbConnect]{dbConnect()}}, \code{\link[=dbGetQuery]{dbGetQuery()}}, \code{\link[=dbDisconnect]{dbDisconnect()}}.
 }

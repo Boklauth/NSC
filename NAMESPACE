@@ -2,4 +2,5 @@
 
 export(NSC)
 export(college_length)
+export(one_from_Graduated)
 export(your_college)

@@ -84,7 +84,7 @@
 #' @references
 #' \insertRef{NationalStudentClearinghouse2017}{NSC}
 #' 
-#' @seealso [your_college()],
+#' @seealso [your_college()],[college_length()], [one_from_Graduated()],
 #' [keyring()], [Oracle()], [dbDriver()], [dbConnect()], [dbGetQuery()], [dbDisconnect()].
 
 NSC <- function (school_code,
