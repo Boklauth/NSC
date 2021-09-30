@@ -47,17 +47,28 @@ your_college <- function(x,
                          CollegeName_col_num, 
                          target_college){
   require(dplyr)
+  # Studentss who enrolled at your college
+  enr_person <- x %>% 
+    filter(CollegeName == "WESTERN MICHIGAN UNIVERSITY") %>% 
+    select(RequesterReturnField) %>% 
+    distinct()
+  
+  ds <-  x %>% 
+    filter(RequesterReturnField %in% enr_person$RequesterReturnField) %>%
+    filter(Graduated == 'N') %>% 
+    arrange(RequesterReturnField,EnrollmentBegin) 
+  
   
   # change the value of the target institution by adding "ZZ" for odering
-  x[x == target_college] <- paste0("ZZ", target_college) 
+  ds[ds == target_college] <- paste0("ZZ", target_college) 
   # order the data using CollegeName
-  x2 <-  x[order(x[,id_col_num], (x[,CollegeName_col_num])),]  
+  ds2 <-  ds[order(ds[,id_col_num], (ds[,CollegeName_col_num])),]  
   id <-NULL
   id[1] <- 1
-  for (i in 1:nrow(xx)-1){
+  for (i in 1:nrow(ds2)-1){
     j<-i+1
     
-    if(identical(xx[i,id_col_num], xx[j,id_col_num])==TRUE){
+    if(identical(ds2[i,id_col_num], ds2[j,id_col_num])==TRUE){
       id[j]<-id[i]+1  
     } else {
       id[j] <-1
@@ -67,27 +78,27 @@ your_college <- function(x,
   # select only id = 1
   # This select a non-targe college if students attend the your (target) institution and 
   # another institution, resulting in enrollment at one institution. 
-  x3 <- cbind(id, xx) %>% filter(id==1) %>% 
-    select(1:dim(xx)[2]+1)
+  ds3 <- cbind(id, ds2) %>% filter(id==1) %>% 
+    select(1:dim(ds2)[2]+1)
   
   # select those who did not enroll at all (HES drop out)
   
   # The students who left your institution and did not enroll elsewhere, 
   # and those who left your institution and come back
-  x4 <- x3 %>% 
-    filter(xxx[,CollegeName_col_num]== paste0("ZZ", target_college)) %>% 
+  ds4 <- ds3 %>% 
+    filter(ds3[,CollegeName_col_num]== paste0("ZZ", target_college)) %>% 
     mutate(IN_HES = case_when(EnrollmentStatus == "W" & Graduated == "N"~"N", 
                               EnrollmentStatus != "W" & Graduated == "N"~"Y")) %>% 
     select(RequesterReturnField, IN_HES) 
   # select those who left your institutin and did not enroll elsewhere
-  x5 <- x4 %>% 
+  ds5 <- ds4 %>% 
     filter(IN_HES == "N")
   # select those who left your institution and comeback compared to the search date
-  x6 <- x4 %>%   
+  ds6 <- ds4 %>%   
     filter(IN_HES=="Y")
-            
   
-  return(list(one_college = x3, HE_dropout = x5), returned_later = x6)
+  
+  return(list(one_college = ds3, HE_dropout = ds5, returned_later = ds6))
 }
 
 
