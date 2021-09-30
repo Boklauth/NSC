@@ -6,11 +6,11 @@
 #' more; whether they left the higher education system (HES) completely. This 
 #' is for the query option = "SE". 
 #' 
-#' @param x A data set obtained from NSC. The query option is "SE". You must read it into R and remove "." in the column names. 
-#' @param id_col_num A column number for the "RequesterReturnField", a column name in the 
-#' data set. 
-#' @param CollegeName_col_num A column number for "CollegeName", a column name in the data set.
-#' @param target_college Your institution's name in all CAPS. 
+#' @param x A data set obtained from NSC. The query option is "SE". The original 
+#' column names given by the National Student Clearinghouse must be used. You 
+#' must read it into R and remove "." in the column names. See the example below. 
+#' @param target_college Your institution's name in all CAPS in single or double 
+#' quotation markds. 
 #' @return It will return the students that dropped out of the higher education system (HES) and 
 #' the stopout students, the students that left your institution for at least one semester and returned 
 #' to your institution, and students who graduated from your institution as a reason for not returning.
@@ -48,14 +48,17 @@
 #' 
 #' @seealso [NSC()],
 
-your_college <- function(x, 
-                         id_col_num, 
-                         CollegeName_col_num, 
-                         target_college){
+your_college <- function(x, target_college){
   require(dplyr)
+  
+  # error message about target_college
+  if(is.na(target_college) | is.null(target_college)){
+    stop("You must provide a value for terget_college.")
+  }
+  
   # Studentss who enrolled at your college
   enr_person <- x %>% 
-    filter(CollegeName == "WESTERN MICHIGAN UNIVERSITY") %>% 
+    filter(CollegeName == target_college) %>% 
     select(RequesterReturnField) %>% 
     distinct()
   

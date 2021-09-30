@@ -4,17 +4,15 @@
 \alias{your_college}
 \title{A Function to Analyze Students Who Attended Your Institution}
 \usage{
-your_college(x, id_col_num, CollegeName_col_num, target_college)
+your_college(x, target_college)
 }
 \arguments{
-\item{x}{A data set obtained from NSC. The query option is "SE". You must read it into R and remove "." in the column names.}
+\item{x}{A data set obtained from NSC. The query option is "SE". The original
+column names given by the National Student Clearinghouse must be used. You
+must read it into R and remove "." in the column names. See the example below.}
 
-\item{id_col_num}{A column number for the "RequesterReturnField", a column name in the
-data set.}
-
-\item{CollegeName_col_num}{A column number for "CollegeName", a column name in the data set.}
-
-\item{target_college}{Your institution's name in all CAPS.}
+\item{target_college}{Your institution's name in all CAPS in single or double
+quotation markds.}
 }
 \value{
 It will return the students that dropped out of the higher education system (HES) and
