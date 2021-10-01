@@ -11,7 +11,7 @@
 #' @param x A data set obtained from NSC. The query option is "SE". The original 
 #' column names given by the National Student Clearinghouse must be used. You 
 #' must read it into R and remove "." in the column names. See the example below. 
-#' @return It will return a list of students who were enrolled in any colleges with various length types. 
+#' @return It will return a list of students with their graduation status.
 #' 
 #' @note In the output data set, 
 #' @note Graduated_L is a graduation status for a less-than-two-year college (L).

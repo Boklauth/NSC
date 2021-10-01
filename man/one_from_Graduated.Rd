@@ -12,7 +12,7 @@ column names given by the National Student Clearinghouse must be used. You
 must read it into R and remove "." in the column names. See the example below.}
 }
 \value{
-It will return a list of students who were enrolled in any colleges with various length types.
+It will return a list of students with their graduation status.
 }
 \description{
 When you conduct a search at a specific search date, you may end up having
