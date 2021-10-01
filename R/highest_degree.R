@@ -184,7 +184,7 @@ x2[x2=="BA LIBERAL ARTS AND SCIENCE"] <- "BACHELOR OF ARTS AND SCIENCE"
   # join with highest degree attained
   
   join2 <- left_join(join1, ds_final, by ="RequesterReturnField")
-  View(join2)
+
   
   return(join2)
 }
