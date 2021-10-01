@@ -12,7 +12,7 @@ column names given by the National Student Clearinghouse must be used. You
 must read it into R and remove "." in the column names. See the example below.}
 
 \item{target_college}{Your institution's name in all CAPS in single or double
-quotation markds.}
+quotation marks.}
 }
 \value{
 It will return the students that dropped out of the higher education system (HES) and
@@ -58,5 +58,5 @@ eg1$your_grad
 
 }
 \seealso{
-\code{\link[=NSC]{NSC()}},
+\code{\link[=highest_degree]{highest_degree()}},\code{\link[=college_length]{college_length()}}, \code{\link[=one_from_Graduated]{one_from_Graduated()}}
 }

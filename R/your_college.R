@@ -10,7 +10,7 @@
 #' column names given by the National Student Clearinghouse must be used. You 
 #' must read it into R and remove "." in the column names. See the example below. 
 #' @param target_college Your institution's name in all CAPS in single or double 
-#' quotation markds. 
+#' quotation marks. 
 #' @return It will return the students that dropped out of the higher education system (HES) and 
 #' the stopout students, the students that left your institution for at least one semester and returned 
 #' to your institution, and students who graduated from your institution as a reason for not returning.
@@ -46,7 +46,7 @@
 #' # Students who graduated from your institution as a reason of not returning
 #' eg1$your_grad
 #' 
-#' @seealso [NSC()],
+#' @seealso [highest_degree()],[college_length()], [one_from_Graduated()]
 
 your_college <- function(x, target_college){
   require(dplyr)

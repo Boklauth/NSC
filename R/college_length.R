@@ -30,7 +30,7 @@
 #' eg1
 #' 
 #' 
-#' @seealso [NSC()],[your_college()]
+#' @seealso [NSC()], [highest_degree()],[one_from_Graduated()]
 
 
 college_length <- function(x){
