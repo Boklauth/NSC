@@ -40,5 +40,5 @@ eg1
 
 }
 \seealso{
-\code{\link[=NSC]{NSC()}},\code{\link[=your_college]{your_college()}}
+\code{\link[=NSC]{NSC()}}, \code{\link[=highest_degree]{highest_degree()}},\code{\link[=one_from_Graduated]{one_from_Graduated()}}
 }
