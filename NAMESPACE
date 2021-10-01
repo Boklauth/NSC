@@ -2,5 +2,6 @@
 
 export(NSC)
 export(college_length)
+export(highest_degree)
 export(one_from_Graduated)
 export(your_college)
