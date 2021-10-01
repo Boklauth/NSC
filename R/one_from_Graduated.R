@@ -41,7 +41,6 @@
 #' 
 #' @seealso [NSC()],[your_college()], [college_length()]
 
-
 one_from_Graduated <- function(x){
   require(dplyr)
   # one Graduated = Y and one Graduated = N
@@ -61,9 +60,9 @@ one_from_Graduated <- function(x){
     }
   }
 
-  x3 <- cbind(id, x2) %>% 
+  x3 <- cbind(id, df) %>% 
     filter(id==1) %>% 
-    select(1:dim(xx)[2]+1) %>% 
+    select(1:dim(df)[2]+1) %>% 
     select(RequesterReturnField, Graduated) %>% 
     rename(Overall_Graduated = Graduated)
   

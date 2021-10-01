@@ -95,8 +95,8 @@ your_college <- function(x, target_college){
   # If student attends your college and another college subsequently
   # then another college is selected.
   
-  ds3 <- cbind(id, ds2) %>% filter(id==1) %>% 
-    select(1:dim(ds2)[2]+1)
+  ds3 <- cbind(id, df) %>% filter(id==1) %>% 
+    select(1:dim(df)[2]+1)
   
   # select those who did not enroll at all (HES drop out)
   
