@@ -17,7 +17,8 @@
 #' @note Graduated_L is a graduation status for a less-than-two-year college (L).
 #' @note Graduated_2 is a graduation status for a two-year college (2).
 #' @note Graduated_4 is a graduation status for a four_year college (4).
-#' #note ComGraduated results from concatenating graduation status combined for all colleges: L, 2, and 4.
+#' @note ComGraduated results from concatenating graduation status combined for 
+#' all colleges: L, 2, and 4.
 #' @note Overall_Graduated is a graduation status for any colleges. 
 #' If a student graduated from any colleges, it was coded as "Y" for graduated;
 #' otherwise, "N" for not graduated from any colleges.

@@ -56,7 +56,7 @@ your_college <- function(x, target_college){
     stop("You must provide a value for terget_college.")
   }
   
-  # Studentss who enrolled at your college
+  # Students who enrolled at your college
   enr_person <- x %>% 
     filter(CollegeName == target_college) %>% 
     select(RequesterReturnField) %>% 
