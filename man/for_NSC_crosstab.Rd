@@ -4,14 +4,19 @@
 \alias{for_NSC_crosstab}
 \title{A Function to Create Longitudinal NSC Data}
 \usage{
-for_NSC_crosstab(file_dir, file_name, college_name)
+for_NSC_crosstab(file_dir, file_name, college_name, x = NULL)
 }
 \arguments{
 \item{file_dir}{A file directory to the data obtained from NSC.}
 
 \item{file_name}{The name of the data file.}
 
-\item{your_college}{The name of your institution in all CAPS. This is to determine
+\item{college_name}{The name of your institution in all CAPS. This is to determine}
+
+\item{x}{A data set that follows a specific way of reading an NSC file
+(see the example 2 below). When a data set is provided, the function does not
+read a data file, file_dir and file_name are not needed, but your_college
+is required.
 whether the students have left your institution and did not enroll else where.
 In this case, the students are assumed to drop out of the higher education
 system (HES).}
@@ -28,7 +33,7 @@ graduation from those colleges, and highest degree obtained. This table is
 for crosstabulation of data. This is for the query option = "SE".
 }
 \examples{
-# example
+# example 1
 setwd('C:/Dell/National Student Clearinghouse/NSC data obtained')
 getwd()
 my_dir <- getwd()
@@ -37,6 +42,20 @@ college_name <- "WESTERN MICHIGAN UNIVERSITY"
 
 myoutput <- for_NSC_crosstab(file_dir = my_dir, 
                         file_name = myfile_name, 
-                        college_name = "WESTERN MICHIGAN UNIVERSITY")
+                        college_name = "WESTERN MICHIGAN UNIVERSITY", 
+                        x = NULL)
 View(myoutput)
+
+# example 2
+#' setwd("C/Users/Dell/Documents")
+file_name <- "00233001_463454_DETLRPT_SE_09282021192135_20210927_se_data_output.csv"
+data <- read.csv(paste0(getwd(), "/", file_name), 
+                 header=TRUE, check.names = TRUE)
+# Remove "." in names
+names(data) <- gsub("\\\\.", "", names(data))
+#' myoutput2 <- for_NSC_crosstab(file_dir = my_dir, 
+                        file_name = myfile_name, 
+                        college_name = "WESTERN MICHIGAN UNIVERSITY", 
+                        x = data)
+View(myoutput2)
 }

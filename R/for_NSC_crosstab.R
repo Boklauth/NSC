@@ -7,7 +7,11 @@
 #' 
 #' @param file_dir A file directory to the data obtained from NSC.
 #' @param file_name The name of the data file. 
-#' @param your_college The name of your institution in all CAPS. This is to determine 
+#' @param college_name The name of your institution in all CAPS. This is to determine 
+#' @param x A data set that follows a specific way of reading an NSC file 
+#' (see the example 2 below). When a data set is provided, the function does not 
+#' read a data file, file_dir and file_name are not needed, but your_college 
+#' is required.
 #' whether the students have left your institution and did not enroll else where. 
 #' In this case, the students are assumed to drop out of the higher education 
 #' system (HES).
@@ -17,7 +21,7 @@
 #'
 #' @export
 #' @examples
-#' # example
+#' # example 1
 #' setwd('C:/Dell/National Student Clearinghouse/NSC data obtained')
 #' getwd()
 #' my_dir <- getwd()
@@ -26,19 +30,44 @@
 #'
 #' myoutput <- for_NSC_crosstab(file_dir = my_dir, 
 #'                         file_name = myfile_name, 
-#'                         college_name = "WESTERN MICHIGAN UNIVERSITY")
+#'                         college_name = "WESTERN MICHIGAN UNIVERSITY", 
+#'                         x = NULL)
 #' View(myoutput)
+#' 
+#' # example 2
+#' #' setwd("C/Users/Dell/Documents")
+#' file_name <- "00233001_463454_DETLRPT_SE_09282021192135_20210927_se_data_output.csv"
+#' data <- read.csv(paste0(getwd(), "/", file_name), 
+#'                  header=TRUE, check.names = TRUE)
+#' # Remove "." in names
+#' names(data) <- gsub("\\.", "", names(data))
+#' #' myoutput2 <- for_NSC_crosstab(file_dir = my_dir, 
+#'                         file_name = myfile_name, 
+#'                         college_name = "WESTERN MICHIGAN UNIVERSITY", 
+#'                         x = data)
+#' View(myoutput2)
 
 for_NSC_crosstab <- function(file_dir,
                          file_name,
-                         college_name){
+                         college_name, 
+                         x = NULL){
   require("dplyr")
   require("NSC")
-  # Pull data ####
-  data <- read.csv(paste0(getwd(), "/", file_name), 
-                   header=TRUE, check.names = TRUE)
-  # Remove "." in names
-  names(data) <- gsub("\\.", "", names(data))
+ 
+  
+  
+  if (is.null(x)){
+    # Pull data ####
+    data <- read.csv(paste0(getwd(), "/", file_name), 
+                     header=TRUE, check.names = TRUE)
+    # Remove "." in names
+    names(data) <- gsub("\\.", "", names(data))
+  } else {
+    data <- x
+    if (is.null(college_name)){
+      stop("Please provide a value for college_name.")
+    }
+  }
   
   # Step 1: get one enrollment ####
   ## In higher ed sys (IN_HES) or not 
