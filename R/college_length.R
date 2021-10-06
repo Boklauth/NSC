@@ -50,8 +50,8 @@ college_length <- function(x){
   
   # Separate data
   # base data set for left join
-  base <- allcollege %>% 
-    select(RequesterReturnField) %>% 
+  base <- x %>% 
+    select(RequesterReturnField, SearchDate) %>% 
     distinct()
   # college less than 2 years
   C1.9 <- allcollege %>% 
@@ -73,12 +73,10 @@ college_length <- function(x){
                      by=c("RequesterReturnField" = "RequesterReturnField"), 
                      suffix=c("1.9", "2"))
   join3 <- left_join(join2, C4, 
-                     by=c("RequesterReturnField" = "RequesterReturnField"), 
-                     ) %>% 
+                     by=c("RequesterReturnField" = "RequesterReturnField")) %>% 
     mutate(all_colleges = gsub(" ", ", ", trimws(gsub("NA", "", 
                               paste(X2year4year1.9, X2year4year2, X2year4year))))) %>% 
     rename(CL2Y = X2year4year1.9, C2Y = X2year4year2, C4Y = X2year4year)
-  
   
   return(collegerows = join3)
 }
