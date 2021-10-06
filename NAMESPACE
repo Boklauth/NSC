@@ -2,6 +2,7 @@
 
 export(NSC)
 export(college_length)
+export(for_NSC_crosstab)
 export(highest_degree)
 export(one_from_Graduated)
 export(your_college)
