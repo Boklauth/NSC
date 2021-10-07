@@ -37,7 +37,7 @@ college_length <- function(x){
   require(dplyr)
   # Studentss who enrolled at your college
   allcollege <- x %>% 
-    filter(EnrollmentStatus != "W") %>% 
+    # filter(EnrollmentStatus != "W") %>% 
     filter(!is.na(EnrollmentBegin)) %>% 
     filter(Graduated=="N") %>% # NSC uses Graduated = N for enrollment
     select(RequesterReturnField, X2year4year, PublicPrivate) %>% 
