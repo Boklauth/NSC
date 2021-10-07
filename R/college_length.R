@@ -9,6 +9,10 @@
 #' @param x A data set obtained from NSC. The query option is "SE". The original 
 #' column names given by the National Student Clearinghouse must be used. You 
 #' must read it into R and remove "." in the column names. See the example below. 
+#' #' @param exclude If exclude = "W", then it excludes the enrollment status = "W" (Withdraw). 
+#' This is helpful when one only wants to collect statistics about enrollment status
+#' that is not W. The default value is NULL, which includes any enrollment status. 
+#' So, any colleges that the students enrolled, although withdrew later, were included.
 #' @return It will return a list of students who were enrolled in any colleges with various length types. 
 #' 
 #'
@@ -33,8 +37,9 @@
 #' @seealso [NSC()], [highest_degree()],[one_from_Graduated()]
 
 
-college_length <- function(x){
+college_length <- function(x, exclude = NULL){
   require(dplyr)
+  if(is.null(exclude)){
   # Studentss who enrolled at your college
   allcollege <- x %>% 
     # filter(EnrollmentStatus != "W") %>% 
@@ -43,6 +48,16 @@ college_length <- function(x){
     select(RequesterReturnField, X2year4year, PublicPrivate) %>% 
     distinct() %>% 
     arrange(RequesterReturnField, X2year4year)
+  } else if (exclude == "W"){
+    # Studentss who enrolled at your college
+    allcollege <- x %>% 
+      filter(EnrollmentStatus != "W") %>% 
+      filter(!is.na(EnrollmentBegin)) %>% 
+      filter(Graduated=="N") %>% # NSC uses Graduated = N for enrollment
+      select(RequesterReturnField, X2year4year, PublicPrivate) %>% 
+      distinct() %>% 
+      arrange(RequesterReturnField, X2year4year)
+  }
   
   
   allcollege[allcollege == "L"] <- 1.9

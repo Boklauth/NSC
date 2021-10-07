@@ -4,12 +4,16 @@
 \alias{college_length}
 \title{A Function to Put College Length Types in a Row}
 \usage{
-college_length(x)
+college_length(x, exclude = NULL)
 }
 \arguments{
 \item{x}{A data set obtained from NSC. The query option is "SE". The original
 column names given by the National Student Clearinghouse must be used. You
-must read it into R and remove "." in the column names. See the example below.}
+must read it into R and remove "." in the column names. See the example below.
+#' @param exclude If exclude = "W", then it excludes the enrollment status = "W" (Withdraw).
+This is helpful when one only wants to collect statistics about enrollment status
+that is not W. The default value is NULL, which includes any enrollment status.
+So, any colleges that the students enrolled, although withdrew later, were included.}
 }
 \value{
 It will return a list of students who were enrolled in any colleges with various length types.
