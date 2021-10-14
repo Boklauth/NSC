@@ -18,8 +18,8 @@ must equal the number of the row of x. If it is NULL, the total vector will
 be calculated row-wise from x.}
 }
 \value{
-It will return a frequency and percentage table showing enrollment
-of students in any colleges with various length types.
+It will return a frequency and percentage table as a data frame
+showing enrollment of students in any colleges with various length types.
 }
 \description{
 This function allows you to create a frequency table with percentage and Total columns.

@@ -11,8 +11,8 @@
 #' be used as the denominators when computing percentages. The vector length 
 #' must equal the number of the row of x. If it is NULL, the total vector will 
 #' be calculated row-wise from x. 
-#' @return It will return a frequency and percentage table showing enrollment 
-#' of students in any colleges with various length types. 
+#' @return It will return a frequency and percentage table as a data frame 
+#' showing enrollment of students in any colleges with various length types. 
 #' 
 #'
 #' @export
@@ -80,7 +80,7 @@ table_fp2 <- function(x, rounding_dec=NULL, use_mytotal=NULL){
     
     # combine freq and percentage tables
     data3 <- round(cbind(data2, data_p2), rounding_dec)
-    return(data3)
+    return(as.data.frame(data3))
   } # end condition when use_mytotal is NULL 
   
   # start condition when use_mytotal is NOT NULL
@@ -126,7 +126,7 @@ table_fp2 <- function(x, rounding_dec=NULL, use_mytotal=NULL){
           # combind freq and percentage tables
           data3 <- round(cbind(data2, data_p2), rounding_dec)
           # return output
-            return(data3)
+          return(as.data.frame(data3))
     } # End condition when length of total is not equal to nrow(x) 
   } # End condition when use_mytotal is NOT NULL
 } # End function
