@@ -8,10 +8,10 @@ Authors@R:
          email = "bklauth@gmail.com",
          comment = c(ORCID = "0000-0001-9442-4223"))
 Description: This package will format your data set so that you can upload it to the National Student Clearinghouse's website for tracking students.
-License:MIT + file LICENSE
+License: MIT + file LICENSE
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Encoding: UTF-8
 Imports: Rdpack, writexl, readxl, dplyr, tidyverse
 RdMacros: Rdpack

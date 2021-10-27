@@ -11,7 +11,8 @@ NSC(
   file_creation_date,
   query_option,
   file_dir,
-  input_file_name
+  input_file_name,
+  suffix
 )
 }
 \arguments{

@@ -93,7 +93,8 @@ NSC <- function (school_code,
                  file_creation_date,
                  query_option,
                  file_dir,
-                 input_file_name){
+                 input_file_name, 
+                 suffix){
   
   # Require libraries
   # library(writexl)
@@ -208,7 +209,9 @@ You may get a matched data set with a warning. In the input data set, please che
   # output file as txt
   file_name_output_txt <- paste0(current_date, '_',
                                  query_option, 
-                                 '_data_output.txt')
+                                 '_',
+                                 suffix,
+                                 '.txt')
   
   write.table(data_output,
               file = paste0(file_dir, '/',file_name_output_txt),
@@ -221,7 +224,9 @@ You may get a matched data set with a warning. In the input data set, please che
   # output file as csv
   file_name_output_csv <- paste0(current_date, '_',
                                  query_option, 
-                                 '_data_output.csv')
+                                 '_',
+                                 suffix,
+                                 '.csv')
 
   write.table(data_output, 
               file = paste0(file_dir, '/',file_name_output_csv),
