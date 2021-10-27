@@ -29,6 +29,8 @@ NSC(
 \item{file_dir}{This is the location of the data set input. Whatever type of input object you have, this director is needed to store the output files.}
 
 \item{input_file_name}{This is a data set input that does NOT contain a header. The file has one of the following extensions: '.xslx', 'xls', or a tab delimited file with an extension '.txt'. Or you can supply an R object containing a data set. It should contain in that order: first name, middle initial, last name, suffix, date of birth in 'YYYYMMDD' format, search date in 'YYYYMMDD' format, and a column for student unique identifiers.  You do NOT need to supply NSC with social security numbers of students.The column for the student unique identifiers will not be used by NSC, but it is there for student matching purposes after the data are granted by NSC. Note that you don't need to include a blank column, school code, and branch code in your input data set because this function will include them and produce a file in the right layout that is ready to be uploaded on to NSC portal. For more instructional information, see https://studentclearinghouse.info/onestop/wp-content/uploads/STCU_User_Manual.pdf.}
+
+\item{suffix}{This is a suffix for the file name.}
 }
 \value{
 NSC will return a data frame output and at the same time output '.txt' and '.csv' files according to the
