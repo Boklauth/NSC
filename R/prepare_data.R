@@ -42,6 +42,7 @@
 
 
 prepare_data <- function(file_dir, file_name, replace_dates=NULL){
+  require(lubridate)
   my_dir <- getwd()
   
   ds <- read.csv(paste0(file_dir, "/", file_name), 
