@@ -62,16 +62,16 @@ prepare_data <- function(file_dir, file_name, replace_dates=NULL){
   SearchDate_y <- as.numeric(substring(ds$SearchDate, 1, 4))
   SearchDate_m <- as.numeric(substring(ds$SearchDate, 5, 6))
   # calculate time indicator from the search date
-  d_indicator1 <-as.numeric(gsub("days", "", (ymd(ds$EnrollmentBegin)-ymd(ds$SearchDate))))
-  m_indicator1 <- as.numeric(gsub("days", "", (ymd(ds$EnrollmentBegin)-ymd(ds$SearchDate))/30))
-  y_indicator1 <- as.numeric(gsub("days", "", (ymd(ds$EnrollmentBegin)-ymd(ds$SearchDate))/(30*12)))
-  EnrollmentBegin_y <- as.numeric(substring(ymd(ds$EnrollmentBegin),1,4))
-  EnrollmentBegin_m <- as.numeric(substring(ymd(ds$EnrollmentBegin),6,7))
-  d_indicator2 <-as.numeric(gsub("days", "", (ymd(ds$EnrollmentEnd)-ymd(ds$SearchDate))))
-  m_indicator2 <- as.numeric(gsub("days", "", (ymd(ds$EnrollmentEnd)-ymd(ds$SearchDate))/30))
-  y_indicator2 <- as.numeric(gsub("days", "", (ymd(ds$EnrollmentEnd)-ymd(ds$SearchDate))/(30*12)))
-  EnrollmentEnd_y <- as.numeric(substring(ymd(ds$EnrollmentEnd),1,4))
-  EnrollmentEnd_m <- as.numeric(substring(ymd(ds$EnrollmentEnd),6,7))
+  d_indicator1 <-as.numeric(gsub("days", "", (lubridate::ymd(ds$EnrollmentBegin)-ymd(ds$SearchDate))))
+  m_indicator1 <- as.numeric(gsub("days", "", (lubridate::ymd(ds$EnrollmentBegin)-ymd(ds$SearchDate))/30))
+  y_indicator1 <- as.numeric(gsub("days", "", (lubridate::ymd(ds$EnrollmentBegin)-ymd(ds$SearchDate))/(30*12)))
+  EnrollmentBegin_y <- as.numeric(substring(lubridate::ymd(ds$EnrollmentBegin),1,4))
+  EnrollmentBegin_m <- as.numeric(substring(lubridate::ymd(ds$EnrollmentBegin),6,7))
+  d_indicator2 <-as.numeric(gsub("days", "", (lubridate::ymd(ds$EnrollmentEnd)-ymd(ds$SearchDate))))
+  m_indicator2 <- as.numeric(gsub("days", "", (lubridate::ymd(ds$EnrollmentEnd)-ymd(ds$SearchDate))/30))
+  y_indicator2 <- as.numeric(gsub("days", "", (lubridate::ymd(ds$EnrollmentEnd)-ymd(ds$SearchDate))/(30*12)))
+  EnrollmentEnd_y <- as.numeric(substring(lubridate::ymd(ds$EnrollmentEnd),1,4))
+  EnrollmentEnd_m <- as.numeric(substring(lubridate::ymd(ds$EnrollmentEnd),6,7))
   # integrate cohorts in the original dataset
   set3 <- cbind(cohort_asis, 
                 cohort_ret,
