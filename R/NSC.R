@@ -155,8 +155,8 @@ You may get a matched data set with a warning. In the input data set, please che
     extracted_dates <- as.Date(as.character(data_table_input[,6]), "%Y%m%d")
     for (i in 1:length(extracted_dates)){
       if (Sys.Date() - extracted_dates[i]< 59){
-          earliest_date <- gsub("-", "", Sys.Date()-60)
-          stop(paste("Your earliest search date allowed is: ", earliest_date,".",
+          latest_date <- gsub("-", "", Sys.Date()-60)
+          stop(paste("Your latest search date allowed is: ", latest_date,".",
                      " It must be at least 60 days to the current date." 
                ))
       }
