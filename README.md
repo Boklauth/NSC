@@ -64,6 +64,6 @@ Bug reports are always welcome and the preferred way to address these bugs is th
 the Github 'issues'. Feel free to submit issues or feature requests on the site, and I'll
 address them ASAP.
 
-## What doy you want to see in the package?
+## What do you want to see in the package?
 
 This is a simple package. If you wish the package can do more things, shoot me with your ideas.
