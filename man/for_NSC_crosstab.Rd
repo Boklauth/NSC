@@ -40,22 +40,22 @@ my_dir <- getwd()
 myfile_name <-  "00233001_463454_DETLRPT_SE_09282021192135_20210927_se_data_output.csv"
 college_name <- "WESTERN MICHIGAN UNIVERSITY"
 
-myoutput <- for_NSC_crosstab(file_dir = my_dir, 
-                        file_name = myfile_name, 
-                        college_name = "WESTERN MICHIGAN UNIVERSITY", 
+myoutput <- for_NSC_crosstab(file_dir = my_dir,
+                        file_name = myfile_name,
+                        college_name = "WESTERN MICHIGAN UNIVERSITY",
                         x = NULL)
 View(myoutput)
 
 # example 2
 #' setwd("C/Users/Dell/Documents")
 file_name <- "00233001_463454_DETLRPT_SE_09282021192135_20210927_se_data_output.csv"
-data <- read.csv(paste0(getwd(), "/", file_name), 
+data <- read.csv(paste0(getwd(), "/", file_name),
                  header=TRUE, check.names = TRUE)
 # Remove "." in names
 names(data) <- gsub("\\\\.", "", names(data))
-#' myoutput2 <- for_NSC_crosstab(file_dir = my_dir, 
-                        file_name = myfile_name, 
-                        college_name = "WESTERN MICHIGAN UNIVERSITY", 
+#' myoutput2 <- for_NSC_crosstab(file_dir = my_dir,
+                        file_name = myfile_name,
+                        college_name = "WESTERN MICHIGAN UNIVERSITY",
                         x = data)
 View(myoutput2)
 }

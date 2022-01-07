@@ -15,6 +15,9 @@ must read it into R and remove "." in the column names. See the example below.}
 It will return a dataframe of students with degrees. Only one degree
 at each degree level (e.g., Associate's Degree) is used if a student has
 more than one degree at that level.
+
+Note: C = Certificate, A = Associate degree, B  = Bachelor degree,
+M = Master, and D = Doctoral degree.
 }
 \description{
 Given a student may have a certificate, associate's degree, bachelor's
@@ -27,14 +30,14 @@ degree, and doctoral degree. This is for the query option = "SE".
 # Read data
 setwd("C/Users/Dell/Documents")
 file_name <- "00233001_463454_DETLRPT_SE_09282021192135_20210927_se_data_output.csv"
-data <- read.csv(paste0(getwd(), "/", file_name), 
+data <- read.csv(paste0(getwd(), "/", file_name),
                  header=TRUE, check.names = TRUE)
 # Remove "." in names
 names(data) <- gsub("\\\\.", "", names(data))
 
 eg1 <- highest_degree(x = data)
-             
-             
+
+
 # Get a list of students with/without their degrees
 eg1
 
