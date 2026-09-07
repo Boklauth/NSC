@@ -14,7 +14,8 @@
 #' @param input_file_name A seven-column data frame, or the filename of a
 #'   headerless XLSX, XLS, tab-delimited TXT or CSV file in file_dir. Columns,
 #'   in order: first name, middle initial, last name, name suffix, date of birth,
-#'   search date, and requester-return identifier. Dates use YYYYMMDD format.
+#'   search date, and requester-return identifier. Birth dates may be supplied as
+#'   dates or common date strings and are written in YYYYMMDD format.
 #'   File input is read as text so leading zeros are preserved.
 #' @param suffix Text appended to the output filename after date and query code.
 #' @return A data frame with 12 columns containing header, retained student
@@ -88,6 +89,33 @@ format_data <- function (school_code, branch_code, school_name, file_creation_da
     stop("The requester-return identifier must be character data so leading zeros are preserved.")
   }
   data_table_input[] <- lapply(data_table_input, as.character)
+
+  birth_date_formats <- list(
+    list(pattern = "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", format = "%Y-%m-%d"),
+    list(pattern = "^[0-9]{4}/[0-9]{2}/[0-9]{2}$", format = "%Y/%m/%d"),
+    list(pattern = "^[0-9]{8}$", format = "%Y%m%d"),
+    list(pattern = "^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$", format = "%m/%d/%Y"),
+    list(pattern = "^[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}$", format = "%m-%d-%Y")
+  )
+  birth_date_iso <- vapply(data_table_input[[5]], function(value) {
+    if (is.na(value) || trimws(value) == "") {
+      return(NA_character_)
+    }
+    for (date_format in birth_date_formats) {
+      if (grepl(date_format$pattern, value)) {
+        parsed_date <- as.Date(value, format = date_format$format)
+        if (!is.na(parsed_date)) {
+          return(format(parsed_date, "%Y-%m-%d"))
+        }
+      }
+    }
+    NA_character_
+  }, character(1))
+  if (any(!is.na(data_table_input[[5]]) & data_table_input[[5]] != "" &
+         is.na(birth_date_iso))) {
+    stop("Birth date values must use a recognized date format.")
+  }
+  data_table_input[[5]] <- gsub("-", "", birth_date_iso, fixed = TRUE)
 
   # Working with middle initial
   mi_tbl <- NULL

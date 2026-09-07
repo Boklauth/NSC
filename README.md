@@ -16,6 +16,8 @@ Clearinghouse.
 	last name, suffix, date of birth, search date, and requester-return identifier.
 - The input may be a data frame or a headerless CSV, TXT, XLS, or XLSX file.
 - File inputs are read as text so leading zeros are preserved.
+- Birth dates are accepted in common formats, normalized internally to
+	`yyyy-mm-dd`, and written to the output as `yyyymmdd`.
 - In-memory `school_code`, `branch_code`, and requester-return identifiers must be
 	character values. Zeros lost before the function receives a numeric value cannot
 	be recovered.
@@ -30,8 +32,9 @@ to `file_dir`. Output filenames use the current date, query option, and `suffix`
 
 - Punctuation is removed from every input field, including identifiers. This can
 	change identifiers that contain punctuation.
+- Birth-date values that are not recognized are rejected.
 - The function does not yet validate column count, query-code values, code lengths,
-	directory existence, or all date formats.
+	directory existence, or all search-date formats.
 - Invalid dates can produce `NA` comparison errors. The current number of days from the search date and today's date must be at least 60 days. So, it gives a message if the length is 59 days or less.
 - Blank names are removed, but whitespace-only names are not.
 - Repeated calls using the same date, query code, and suffix overwrite files.
