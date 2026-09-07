@@ -1,6 +1,6 @@
 Package: NSC
 Title: This package will format your data set according to the National Student Clearinghouse format. 
-Version: 1.1.7
+Version: 1.1.7.9000
 Authors@R:
   person(given = "Bo",
          family = "Klauth",
@@ -11,7 +11,7 @@ Description: This package will format your data set so that you can upload it to
 License: MIT + file LICENSE
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Encoding: UTF-8
-Imports: Rdpack, writexl, readxl, dplyr, tidyverse, lubridate
+Imports: Rdpack, writexl, readxl, dplyr, tidyverse, lubridate, stringi
 RdMacros: Rdpack
