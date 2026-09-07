@@ -85,20 +85,27 @@ The console displays:
 Klauth B (2026). NSC: Format Student Data for the National Student Clearinghouse. R package version 1.1.8.
 ```
 
-## Local installation
+## Installation
 
-Because the package is private, install it from the local package directory:
+In addition to CRAN, to install the package from GitHub, type the following:
 
 ```r
-remotes::install_local("path/to/NSC")
+install.packages("remotes")
+remotes::install_github("Boklauth/NSC")
 ```
-
-For development, load the package with `devtools::load_all("path/to/NSC")`.
-
-There are currently no package tests. The first tests should cover leading zeros,
-invalid dates, empty or malformed input, output row widths, and repeated output
-filenames.
 
 ## License
 
 This package is licensed under the MIT License. See `LICENSE` and `LICENSE.md`.
+
+## Warranty Disclaimer
+
+This package is provided free of charge and "as is," without warranty of any
+kind. To the fullest extent permitted by applicable law, the author disclaims
+all express or implied warranties, including warranties of merchantability,
+fitness for a particular purpose, accuracy, and non-infringement. Users are
+responsible for evaluating the package, verifying its output, and determining
+whether it is suitable for their intended use. The author is not responsible
+for errors, omissions, data loss, or consequences resulting from the use of
+this package.
+
