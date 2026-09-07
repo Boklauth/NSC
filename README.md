@@ -1,7 +1,10 @@
 # NSC
 
-Private R package for formatting student data for the National Student
+This is an R package for formatting student data for the National Student
 Clearinghouse. The package currently supports one function: `format_data()`.
+
+This package is not affiliated with, endorsed by, sponsored by, or officially
+connected with the National Student Clearinghouse.
 
 It prepares a seven-column student dataset for submission by creating the NSC
 header, detail, and trailer rows, then writing tab-delimited TXT and CSV files.
