@@ -1,7 +1,7 @@
-# NSC 1.1.7.9000
+# NSC 1.1.8
 
-* Added format_data() based on the February 4, 2026 edited NSC implementation.
-* Retained NSC() as a compatibility wrapper with the same arguments.
-* Added explicit stringi dependency and namespace-qualified calls.
-* Consolidated duplicate NSC definitions and updated function documentation.
-* Legacy input-validation and identifier-cleaning limitations remain documented.
+* Kept `format_data()` as the package's sole public function.
+* Added text-safe import handling so leading zeros are preserved for file inputs.
+* Added validation for character institution codes and requester-return IDs.
+* Reduced package dependencies to `readxl` and `stringi`.
+* Updated package metadata, documentation, and CRAN source-build exclusions.

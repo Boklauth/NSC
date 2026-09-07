@@ -1,17 +1,17 @@
 Package: NSC
-Title: This package will format your data set according to the National Student Clearinghouse format. 
-Version: 1.1.7.9000
+Title: Format Student Data for the National Student Clearinghouse
+Version: 1.1.8
 Authors@R:
-  person(given = "Bo",
-         family = "Klauth",
-         role = c("aut", "cre"),
-         email = "bklauth@gmail.com",
-         comment = c(ORCID = "0000-0001-9442-4223"))
-Description: This package will format your data set so that you can upload it to the National Student Clearinghouse's website for tracking students.
+  c(person(given = "Bo",
+           family = "Klauth",
+           role = c("aut", "cre"),
+           email = "bklauth@gmail.com",
+           comment = c(ORCID = "0000-0001-9442-4223")))
+Description: Formats student records for submission to the National Student
+    Clearinghouse. The package creates the required header, detail, and trailer
+    rows and writes tab-delimited TXT and CSV files.
 License: MIT + file LICENSE
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Encoding: UTF-8
-Imports: Rdpack, writexl, readxl, dplyr, tidyverse, lubridate, stringi
-RdMacros: Rdpack
+Imports: readxl, stringi

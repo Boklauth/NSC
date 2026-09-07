@@ -91,7 +91,7 @@ format_data <- function (school_code, branch_code, school_name, file_creation_da
 
   # Working with middle initial
   mi_tbl <- NULL
-  for (i in 1:nrow(data_table_input)) {
+  for (i in seq_len(nrow(data_table_input))) {
     mi_tbl[i] <- nchar(data_table_input[i, 2]) > 1
   }
   
@@ -142,7 +142,7 @@ format_data <- function (school_code, branch_code, school_name, file_creation_da
   }
   extracted_dates <- as.Date(as.character(data_table_input[, 
                                                            6]), "%Y%m%d")
-  for (i in 1:length(extracted_dates)) {
+  for (i in seq_along(extracted_dates)) {
     if (Sys.Date() - extracted_dates[i] < 59) {
       latest_date <- gsub("-", "", Sys.Date() - 60)
       stop(paste("Your latest search date allowed is: ", 
