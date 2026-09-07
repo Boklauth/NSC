@@ -78,6 +78,8 @@ To obtain the APA-style citation for this package, run:
 citation("NSC")
 ```
 
+"Klauth B (2026). _NSC: Format Student Data for the National Student Clearinghouse_. R package version 1.1.8."
+
 ## Local installation
 
 Because the package is private, install it from the local package directory:
