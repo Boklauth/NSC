@@ -33,6 +33,8 @@ to `file_dir`. Output filenames use the current date, query option, and `suffix`
 - Punctuation is removed from every input field, including identifiers. This can
 	change identifiers that contain punctuation.
 - Birth-date values that are not recognized are rejected.
+- For query option `CO`, multiple search dates display a message and return
+  `NULL` without creating output files; use `SE` for multiple search dates.
 - The function does not yet validate column count, query-code values, code lengths,
 	directory existence, or all search-date formats.
 - Invalid dates can produce `NA` comparison errors. The current number of days from the search date and today's date must be at least 60 days. So, it gives a message if the length is 59 days or less.
@@ -67,6 +69,14 @@ formatted <- format_data(
 
 The `school_code`, `branch_code`, and requester-return identifier are quoted so
 leading zeros remain available to the function.
+
+## Citation
+
+To obtain the APA-style citation for this package, run:
+
+```r
+citation("NSC")
+```
 
 ## Local installation
 

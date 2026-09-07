@@ -1,8 +1,7 @@
 #' Format Student Data for National Student Clearinghouse Submission
 #'
 #' Format student records into header, detail and trailer rows and write
-#' tab-delimited TXT and CSV files. This incorporates the February 4, 2026
-#' implementation. It prepares files; it does not upload them.
+#' tab-delimited TXT and CSV files. It prepares files; it does not upload them.
 #' @param school_code Institution's six-digit code supplied as character text
 #'   to preserve leading zeros.
 #' @param branch_code Two-digit branch code supplied as character text.
@@ -24,27 +23,38 @@
 #'   Records with missing or empty first/last names are excluded. The trailer
 #'   count includes the header and trailer.
 #'
-#'   This update retains the 20260204 implementation's validation and output
-#'   behavior. Punctuation is removed from all input fields, including IDs.
+#'   In this update, punctuation is removed from all input fields, including IDs.
 #'   File input is read as text. For an R data frame, the identifier column must
 #'   be character; zeros lost before the call cannot be recovered. Whitespace-only names are not
 #'   excluded, and an input with no retained records is not supported.
-#'   The existing date check rejects dates fewer than 59 days before the current
-#'   system date, despite its error message referring to 60 days. These legacy
-#'   behaviors need further review against current submission requirements.
-#'   Same-day calls with the same query code and suffix overwrite output files.
+#'   The existing date check rejects dates fewer than 60 days before the current
+#'   system date. NSC only allows search dates within at least 60 days of the current
+#'   system date.
+#'
+#' @references
+#' To cite this package in APA style, run `citation("NSC")` in R.
+#'
 #' @export
 #' @examples
 #' students <- data.frame(
-#'   first = paste0("Student", seq_len(11)), middle = "A", last = "Example",
-#'   suffix = "", dob = "20000101", search = "20200101",
+#'   first = paste0("Student", seq_len(11)),
+#'   middle = "A",
+#'   last = "Example",
+#'   suffix = "", dob = "2000-01-01",
+#'   search = "2020-01-01",
 #'   id = sprintf("%05d", seq_len(11)))
+#'
 #' destination <- tempfile("NSC-example-")
 #' dir.create(destination)
 #' formatted <- format_data(
-#'   school_code = "001234", branch_code = "00", school_name = "Example College",
-#'   file_creation_date = format(Sys.Date(), "%Y%m%d"), query_option = "SE",
-#'   file_dir = destination, input_file_name = students, suffix = "example")
+#'   school_code = "001234",
+#'   branch_code = "00",
+#'   school_name = "Example College",
+#'   file_creation_date = format(Sys.Date(), "%Y%m%d"),
+#'   query_option = "SE",
+#'   file_dir = destination,
+#'   input_file_name = students,
+#'   suffix = "example")
 #' dim(formatted)
 format_data <- function (school_code, branch_code, school_name, file_creation_date,
           query_option, file_dir, input_file_name, suffix)
@@ -165,7 +175,8 @@ format_data <- function (school_code, branch_code, school_name, file_creation_da
   
   if (query_option == "CO") {
     if (length(unique(data_table_input[, 6])) > 1) {
-      stop("search date for the query option 'CO' must be a single date per file. You might want to use the query option = 'SE' for multiple search dates.")
+      message("The search date for query option 'CO' must be a single date per file. Use query option 'SE' when multiple search dates are needed. The function has stopped without creating output files.")
+      return(invisible(NULL))
     }
   }
   extracted_dates <- as.Date(as.character(data_table_input[, 
@@ -173,8 +184,10 @@ format_data <- function (school_code, branch_code, school_name, file_creation_da
   for (i in seq_along(extracted_dates)) {
     if (Sys.Date() - extracted_dates[i] < 59) {
       latest_date <- gsub("-", "", Sys.Date() - 60)
-      stop(paste("Your latest search date allowed is: ", 
-                 latest_date, ".", " It must be at least 60 days to the current date."))
+      message(paste("The latest allowed search date is:", latest_date,
+                    ". It must be at least 60 days before today.",
+                    "The function has stopped without creating output files."))
+      return(invisible(NULL))
     }
   }
   header_row <- c("H1", school_code, branch_code, school_name, 

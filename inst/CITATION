@@ -1,0 +1,17 @@
+bib <- bibentry(
+  bibtype = "Manual",
+  title = "NSC: Format Student Data for the National Student Clearinghouse",
+  author = person(
+    given = "Bo",
+    family = "Klauth",
+    email = "bklauth@gmail.com"
+  ),
+  year = "2026",
+  note = paste0("R package version ", meta[["Version"]]),
+  textVersion = paste0(
+    "Klauth, B. (2026). NSC: Format Student Data for the National Student " ,
+    "Clearinghouse (Version ", meta[["Version"]], "). R package."
+  )
+)
+
+bib

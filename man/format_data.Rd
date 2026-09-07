@@ -33,7 +33,8 @@ search date in the input.}
 \item{input_file_name}{A seven-column data frame, or the filename of a
 headerless XLSX, XLS, tab-delimited TXT or CSV file in file_dir. Columns,
 in order: first name, middle initial, last name, name suffix, date of birth,
-search date, and requester-return identifier. Dates use YYYYMMDD format.
+search date, and requester-return identifier. Birth dates may be supplied as
+dates or common date strings and are written in YYYYMMDD format.
 File input is read as text so leading zeros are preserved.}
 
 \item{suffix}{Text appended to the output filename after date and query code.}
@@ -44,34 +45,43 @@ detail rows and trailer. TXT and CSV files are also written to file_dir.
 }
 \description{
 Format student records into header, detail and trailer rows and write
-tab-delimited TXT and CSV files. This incorporates the February 4, 2026
-implementation. It prepares files; it does not upload them.
+tab-delimited TXT and CSV files. It prepares files; it does not upload them.
 }
 \details{
 Latin accents in the four name fields are transliterated to ASCII.
 Records with missing or empty first/last names are excluded. The trailer
 count includes the header and trailer.
 
-This update retains the 20260204 implementation's validation and output
-behavior. Punctuation is removed from all input fields, including IDs.
+In this update, punctuation is removed from all input fields, including IDs.
 File input is read as text. For an R data frame, the identifier column must
 be character; zeros lost before the call cannot be recovered. Whitespace-only names are not
 excluded, and an input with no retained records is not supported.
-The existing date check rejects dates fewer than 59 days before the current
-system date, despite its error message referring to 60 days. These legacy
-behaviors need further review against current submission requirements.
-Same-day calls with the same query code and suffix overwrite output files.
+The existing date check rejects dates fewer than 60 days before the current
+system date. NSC only allows search dates within at least 60 days of the current
+system date.
 }
 \examples{
 students <- data.frame(
-  first = paste0("Student", seq_len(11)), middle = "A", last = "Example",
-  suffix = "", dob = "20000101", search = "20200101",
+  first = paste0("Student", seq_len(11)),
+  middle = "A",
+  last = "Example",
+  suffix = "", dob = "2000-01-01",
+  search = "2020-01-01",
   id = sprintf("\%05d", seq_len(11)))
+
 destination <- tempfile("NSC-example-")
 dir.create(destination)
 formatted <- format_data(
-  school_code = "001234", branch_code = "00", school_name = "Example College",
-  file_creation_date = format(Sys.Date(), "\%Y\%m\%d"), query_option = "SE",
-  file_dir = destination, input_file_name = students, suffix = "example")
+  school_code = "001234",
+  branch_code = "00",
+  school_name = "Example College",
+  file_creation_date = format(Sys.Date(), "\%Y\%m\%d"),
+  query_option = "SE",
+  file_dir = destination,
+  input_file_name = students,
+  suffix = "example")
 dim(formatted)
+}
+\references{
+To cite this package in APA style, run \code{citation("NSC")} in R.
 }
