@@ -1,6 +1,7 @@
 Package: NSC
 Title: Format Student Data for the National Student Clearinghouse
 Version: 1.1.8
+Date: 2026-09-07
 Authors@R:
   c(person(given = "Bo",
            family = "Klauth",

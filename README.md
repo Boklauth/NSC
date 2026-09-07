@@ -75,10 +75,15 @@ leading zeros remain available to the function.
 To obtain the APA-style citation for this package, run:
 
 ```r
-citation("NSC")
+cite <- format(citation("NSC"), style = "text")
+cat(gsub("_", "", cite, fixed = TRUE), "\n")
 ```
 
-"Klauth B (2026). _NSC: Format Student Data for the National Student Clearinghouse_. R package version 1.1.8."
+The console displays:
+
+```text
+Klauth B (2026). NSC: Format Student Data for the National Student Clearinghouse. R package version 1.1.8.
+```
 
 ## Local installation
 
