@@ -21,8 +21,7 @@
 #'   detail rows and trailer. TXT and CSV files are also written to file_dir.
 #' @details Latin accents in the four name fields are transliterated to ASCII.
 #'   Records with missing or empty first/last names are excluded. The trailer
-#'   count includes the header and trailer. NSC() is a compatibility wrapper
-#'   with the same arguments and behavior.
+#'   count includes the header and trailer.
 #'
 #'   This update retains the 20260204 implementation's validation and output
 #'   behavior. Punctuation is removed from all input fields, including IDs.
