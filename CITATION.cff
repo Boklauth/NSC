@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this package, please cite it using the metadata in this file."
+type: software
+title: "NSC: Format Student Data for the National Student Clearinghouse"
+authors:
+  - family-names: Klauth
+    given-names: Bo
+    email: bklauth@gmail.com
+    orcid: "https://orcid.org/0000-0001-9442-4223"
+version: 1.1.8
+date-released: 2026-09-07
+repository-code: "https://github.com/Boklauth/NSC"
+license: MIT
+abstract: >-
+  Formats student records for submission to the National Student
+  Clearinghouse. The package creates the required header, detail, and trailer
+  rows and writes tab-delimited TXT and CSV files.
