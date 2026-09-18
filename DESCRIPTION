@@ -16,3 +16,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Encoding: UTF-8
 Imports: readxl, stringi
+URL: https://github.com/Boklauth/NSC,
+    https://doi.org/10.5281/zenodo.22822594

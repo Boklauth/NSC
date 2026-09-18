@@ -8,6 +8,7 @@ authors:
     email: bklauth@gmail.com
     orcid: "https://orcid.org/0000-0001-9442-4223"
 version: 1.1.8
+doi: "10.5281/zenodo.22822594"
 date-released: 2026-09-07
 repository-code: "https://github.com/Boklauth/NSC"
 license: MIT

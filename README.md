@@ -1,5 +1,7 @@
 # NSC
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22822594.svg)](https://doi.org/10.5281/zenodo.22822594)
+
 This is an R package for formatting student data for the National Student
 Clearinghouse. The package currently supports one function: `format_data()`.
 
@@ -75,7 +77,7 @@ leading zeros remain available to the function.
 
 ## Citation
 
-To obtain the APA-style citation for this package, run:
+To obtain the package citation, run:
 
 ```r
 cite <- format(citation("NSC"), style = "text")
@@ -85,7 +87,9 @@ cat(gsub("_", "", cite, fixed = TRUE), "\n")
 The console displays:
 
 ```text
-Klauth B (2026). NSC: Format Student Data for the National Student Clearinghouse. R package version 1.1.8.
+Klauth B (2026). NSC: Format Student Data for the National Student Clearinghouse.
+doi:10.5281/zenodo.22822594 <https://doi.org/10.5281/zenodo.22822594>,
+R package version 1.1.8, <https://github.com/Boklauth/NSC>.
 ```
 
 ## Installation

@@ -1,0 +1,9 @@
+bibentry(
+  bibtype = "Manual",
+  title = "NSC: Format Student Data for the National Student Clearinghouse",
+  author = person("Bo", "Klauth"),
+  year = "2026",
+  note = "R package version 1.1.8",
+  doi = "10.5281/zenodo.22822594",
+  url = "https://github.com/Boklauth/NSC"
+)
